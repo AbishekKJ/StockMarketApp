@@ -13,11 +13,11 @@ The application is built using Python with a focus on clean, maintainable, and p
 1. Your company is building the object-oriented system to run that trading.
 2. You have been assigned to build part of the core object model for a limited phase 1
 3. For a given stock,
-    i. Given any price as input, calculate the dividend yield
-    ii. Given any price as input, calculate the P/E Ratio
-    iii. Record a trade, with timestamp, quantity, buy or sell indicator and price
-    iv. Calculate Volume Weighted Stock Price based on trades in past 5 minutes
-    v. Calculate the GBCE All Share Index using the geometric mean of the Volume Weighted Stock Price for all the stocks
+    - Given any price as input, calculate the dividend yield
+    - Given any price as input, calculate the P/E Ratio
+    - Record a trade, with timestamp, quantity, buy or sell indicator and price
+    - Calculate Volume Weighted Stock Price based on trades in past 5 minutes
+    - Calculate the GBCE All Share Index using the geometric mean of the Volume Weighted Stock Price for all the stocks
 
 ## Project Structure
 
@@ -55,7 +55,7 @@ Represents a stock base class with the following properties:
 
 Represents a common stock class implementing base class stock with the following properties:
 
-- `symbol`: The stock symbol (e.g., TEA, POP)
+- `symbol`: The stock symbol (e.g., TEA, POP, ALE, JOE)
 - `parValue`: The par value of the stock
 - `last_dividend`: The last dividend value
 
@@ -63,7 +63,7 @@ Represents a common stock class implementing base class stock with the following
 
 Represents a preferred stock class implementing base class stock with the following properties:
 
-- `symbol`: The stock symbol (e.g., TEA, POP)
+- `symbol`: The stock symbol (e.g., GIN)
 - `parValue`: The par value of the stock
 - `last_dividend`: The last dividend value
 - `fixed_dividend`: The fixed dividend value
