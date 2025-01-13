@@ -15,6 +15,6 @@ class PreferredStock(Stock):
         """Calculate the dividend yield for preferred stock."""
         return (self.fixed_dividend / 100 * self.par_value) / price if price > 0 else 0
 
-    def get_last_dividend(self) -> float:
+    def get_last_dividend(self) -> Decimal:
         """Return the last dividend for preferred stock."""
         return self.last_dividend
