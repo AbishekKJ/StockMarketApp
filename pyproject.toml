@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "StockMarketApp"
+version = "0.1.0"
+description = "Super Simple Stock Market App - Global Beverage Corporation Exchange is a new stock market trading in drinks companies. This Stock Market application simulates basic operations such as calculating the dividend yield, P/E ratio, recording trades, calculating volume-weighted stock price, and computing the all-share index for a given set of stocks"
+authors = ["Abishek KJ <jayabishek91@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+packages = [{ include = "stock_market" }]  # Include the stock_market package here
+
+[tool.poetry.dependencies]
+python = ">=3.12"
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+flake8 = "^7.1.1"
+black = "^24.10.0"
+mypy = "^1.14.1"
+pylint = "^3.3.3"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
