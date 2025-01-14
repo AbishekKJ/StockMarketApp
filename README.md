@@ -117,14 +117,14 @@ Run the Application
 If the application requires execution, provide the command below:
 
 ```bash
-python -m stock_market.py
+poetry run python stock_market.py
 ```
 
 Running Tests
 
 To run all test cases using pytest:
 ```bash
-pytest
+poetry run pytest
 ```
 Ensure the test cases cover various stock types, trade scenarios, and market operations.
 
@@ -150,3 +150,5 @@ The following assumptions are made while implementing the solution
 - Decimal is used as a data type for stock price, dividend values, par value and trade price as Decimal gives high
   precision and used widely over financial calculations
 - The stock types used for the problem - CommonStock and Preferred
+- Assumed the code should also accept the stock, trade and other data as input so added config parameter to load pre-loaded sample data or fetch input
+- Input is explictly passed as Decimal assuming value will be decimal. Need to consider converting to Decimal before calculation for safe side
