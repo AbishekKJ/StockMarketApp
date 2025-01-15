@@ -4,6 +4,7 @@ from decimal import Decimal
 from datetime import datetime, timedelta
 from stock_market.models.common_stock import CommonStock
 from stock_market.models.preferred_stock import PreferredStock
+from stock_market.models.trade import Trade
 from stock_market.gbce import GBCE
 from stock_market.enums import TradeType
 from stock_market.exceptions import NoTradesAvailableError
@@ -36,12 +37,12 @@ def preload_data():
             trade_timestamp = datetime.now() - timedelta(minutes=timestamp_offset)
 
             # Record the trade directly
-            stock.trades.append({
-                "timestamp": trade_timestamp,
-                "quantity": quantity,
-                "trade_type": trade_type,
-                "price": price
-            })
+            stock.trades.append(Trade(
+                timestamp=trade_timestamp,
+                quantity=quantity,
+                trade_type=trade_type,
+                price=price
+            ))
             logging.info(f"Preloaded trade for {stock.symbol}: {trade_type.value} {quantity} @ {price}")
 
     return stocks
@@ -68,7 +69,7 @@ def handle_user_input(stocks, market_service):
             symbol = input("Enter stock symbol (TEA, POP, GIN, ALE, JOE): ").upper()
             stock = next((s for s in stocks if s.symbol == symbol), None)
             if not stock:
-                print(f"No stock found with symbol {symbol}.")
+                logging.info(f"No stock found with symbol {symbol}.")
                 continue
             quantity = int(input("Enter quantity: "))
             trade_type = TradeType[input("Enter trade type (BUY/SELL): ").upper()]
@@ -80,43 +81,43 @@ def handle_user_input(stocks, market_service):
             price = Decimal(input("Enter price: "))
             stock = next((s for s in stocks if s.symbol == symbol), None)
             if not stock:
-                print(f"No stock found with symbol {symbol}.")
+                logging.info(f"No stock found with symbol {symbol}.")
                 continue
-            print(f"{symbol} Dividend Yield: {stock.calculate_dividend_yield(price)}")
+            logging.info(f"{symbol} Dividend Yield: {stock.calculate_dividend_yield(price)}")
 
         elif choice == "3":
             symbol = input("Enter stock symbol: ").upper()
             price = Decimal(input("Enter price: "))
             stock = next((s for s in stocks if s.symbol == symbol), None)
             if not stock:
-                print(f"No stock found with symbol {symbol}.")
+                logging.info(f"No stock found with symbol {symbol}.")
                 continue
-            print(f"{symbol} P/E Ratio: {stock.calculate_pe_ratio(price)}")
+            logging.info(f"{symbol} P/E Ratio: {stock.calculate_pe_ratio(price)}")
 
         elif choice == "4":
             symbol = input("Enter stock symbol: ").upper()
             stock = next((s for s in stocks if s.symbol == symbol), None)
             if not stock:
-                print(f"No stock found with symbol {symbol}.")
+                logging.info(f"No stock found with symbol {symbol}.")
                 continue
             try:
-                print(f"{symbol} VWSP: {stock.calculate_volume_weighted_stock_price()}")
+                logging.info(f"{symbol} VWSP: {stock.calculate_volume_weighted_stock_price()}")
             except NoTradesAvailableError as e:
-                print(f"Error: {e}")
+                logging.info(f"Error: {e}")
 
         elif choice == "5":
             try:
                 gbce_index = market_service.calculate_gbce_all_share_index()
-                print(f"GBCE All Share Index: {gbce_index}")
+                logging.info(f"GBCE All Share Index: {gbce_index}")
             except NoTradesAvailableError as e:
-                print(f"Error: {e}")
+                logging.info(f"Error: {e}")
 
         elif choice == "6":
-            print("Exiting...")
+            logging.info("Exiting...")
             break
 
         else:
-            print("Invalid choice. Please try again.")
+            logging.info("Invalid choice. Please try again.")
 
 
 if __name__ == "__main__":
